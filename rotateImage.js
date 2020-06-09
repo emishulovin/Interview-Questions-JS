@@ -11,7 +11,7 @@ function rotateImage(a) {
             a[n-y-1][x] = a[n-x-1][n-y-1] // bottom-right -> bottom-left
             a[n-x-1][n-y-1] = a[y][n-x-1] // top-right -> bottom-right
             a[y][n-x-1] = temp  // top-left -> top-right
-    }
+        }
     }
     return a
 }
