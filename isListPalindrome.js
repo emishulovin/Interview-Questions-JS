@@ -4,27 +4,39 @@
 //   this.next = null;
 // }
 
-// to decide if palindrome, we could build a stack and traverse the list again, popping and comparing; or move three pointers, and reverse the list that way. Recursion would cause a large call stack.  Since we have O(1) of additional space, let's use reversing.
+// to decide if palindrome, we could build a stack and traverse the list again, popping and comparing; or move three pointers, and reverse the list. Recursion would cause a large call stack.  Since we have O(1) of additional space, let's use reversing.
 // note to self: the only time we change the linked list itself is when we invoke it's own properties (next and this).
 
 const reverseList = (l) => {
   let prev = null; // 1st pointer
   let current = l; // 2nd pointer
-  console.log("first current: ", current.value);
   while (current != null) {
     next = current.next; //3rd pointer
     current.next = prev;
     prev = current;
     current = next;
-    console.log("prev: ", prev.value);
   }
   reversed = prev;
   return reversed;
 };
 
+const getLastNode = (l) => {
+  while (l.next != null) {
+    l = l.next;
+  }
+  return l;
+};
+
+const getPreviousNode = (l, end) => {
+  while (l && l.next != end) {
+    l = l.next;
+  }
+  return l;
+};
+
 const printList = (l) => {
-  while (l) {
-    console.log("print each node:", l.value);
+  while (l.next != null) {
+    console.log(l.val);
     l = l.next;
   }
 };
@@ -38,29 +50,29 @@ const listLength = (l) => {
   return n;
 };
 
-const isListPalindrome = (l) => {
-  if (l === null) {
-    // no node provided
-    console.log("was null");
+const isPalindrome = (l) => {
+  if (l == null || l.next == null) {
+    // no or one node provided
     return true;
   }
-  if (l.next === null) {
-    // case where just one node
-    return true;
+  console.log("l.value, l.next.value", l.val, l.next.val);
+  if (l.next.next == null && l.val != l.next.val) {
+    return false;
   }
 
-  reversed = reverseList(l);
-  n = listLength(l);
-  printList(reversed);
-  i = 0;
-  while (i < n / 2) {
-    if (reversed.value !== l.value) {
-      console.log("compare 2 values: ", reversed.value, l.value);
+  // reversed = reverseList(l)
+  // let n = listLength(l)
+
+  let start = l;
+  let end = getLastNode(l);
+
+  while (start != end && end.next != start) {
+    if (start.val !== end.val) {
       return false;
     }
-    reversed.value = reversed.next;
-    l.value = l.next;
-    i++;
+    start = start.next;
+    end = getPreviousNode(l, end);
+    console.log("start, end: ", start, end);
   }
   return true;
 };
