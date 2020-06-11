@@ -1,5 +1,5 @@
 // Checks every position of the sudoku board for 3 types of conditions: the row, column, and box must not have the same 
-// number twice. 
+// number twice. O(n^2) running time. 
 
 const sudoku2 = (grid) => {
   let n = grid.length;
