@@ -1,3 +1,25 @@
+// Checks every position of the sudoku board for 3 types of conditions: the row, column, and box must not have the same 
+// number twice. O(n^2) running time. 
+
+const sudoku2 = (grid) => {
+  let n = grid.length;
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n - 1; j++) {
+      let num = grid[i][j]; // not sure about this one //
+      if (num != ".") {
+        if (
+          !rowAvailable(grid, i, num) ||
+          !colAvailable(grid, j, num) ||
+          !boxAvailable(grid, i - (i % 3), j - (j % 3), num)
+        ) {
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+};
+
 const rowAvailable = (grid, row, num) => {
   let present = 0;
   for (let i = 0; i < 9; i++) {
@@ -40,24 +62,7 @@ const boxAvailable = (grid, row, col, num) => {
   return true;
 };
 
-const sudoku2 = (grid) => {
-  let n = grid.length;
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n - 1; j++) {
-      let num = grid[i][j]; // not sure about this one //
-      if (num != ".") {
-        if (
-          !rowAvailable(grid, i, num) ||
-          !colAvailable(grid, j, num) ||
-          !boxAvailable(grid, i - (i % 3), j - (j % 3), num)
-        ) {
-          return false;
-        }
-      }
-    }
-  }
-  return true;
-};
+
 
 const grid1 = [
   [".", ".", ".", "1", "4", ".", ".", "2", "."],
