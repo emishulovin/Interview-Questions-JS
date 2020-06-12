@@ -5,8 +5,7 @@
 // }
 
 // to decide if palindrome, we could build a stack and traverse the list again, popping and comparing; or move three pointers, and reverse the list. Recursion would cause a large call stack.  Since we have O(1) of additional space, let's use reversing.
-// note to self: the only time we change the linked list itself is when we invoke it's own properties (next and this).
-
+//
 const reverseList = (l) => {
   let prev = null; // 1st pointer
   let current = l; // 2nd pointer
